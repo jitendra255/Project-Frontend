@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Fundraiser</title>
+
+    <!-- FontAwesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #f7f7f7;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        width: 100%;
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+        border-top: 6px solid #ff9800;
+      }
+
+      h2 {
+        color: #ff9800;
+        margin-bottom: 15px;
+      }
+
+      .fundraiser-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      textarea {
+        resize: none;
+        height: 100px;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #ff9800;
+        box-shadow: 0px 2px 5px rgba(255, 152, 0, 0.3);
+      }
+
+      .upload-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border: 2px dashed #ff9800;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .upload-box:hover {
+        background: rgba(255, 152, 0, 0.1);
+      }
+
+      button {
+        padding: 12px;
+        background: #ff9800;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #e68900;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>📢 Create a Fundraiser</h2>
+      <p>Fill in the details to start a fundraiser.</p>
+
+      <form class="fundraiser-form" onsubmit="saveFundraiser(event)">
+        <input type="text" id="title" placeholder="Fundraiser Title" required />
+        <textarea
+          id="description"
+          placeholder="Describe your cause..."
+          required
+        ></textarea>
+        <input
+          type="number"
+          id="goal"
+          placeholder="Goal Amount (₹)"
+          min="1"
+          required
+        />
+
+        <select id="category" required>
+          <option value="">Select Category</option>
+          <option value="education">Education</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="disaster_relief">Disaster Relief</option>
+          <option value="environment">Environment</option>
+          <option value="others">Others</option>
+        </select>
+
+        <label class="upload-box">
+          <i class="fa fa-upload"></i> Upload Fundraiser Image
+          <input type="file" id="image" accept="image/*" />
+        </label>
+
+        <button type="submit">Create Fundraiser</button>
+      </form>
+
+      <script>
+        function saveFundraiser(event) {
+          event.preventDefault(); // Prevent form from reloading page
+
+          // Get form data
+          const title = document.getElementById("title").value;
+          const description = document.getElementById("description").value;
+          const goal = document.getElementById("goal").value;
+          const category = document.getElementById("category").value;
+          const imageInput = document.getElementById("image").files[0];
+
+          if (!title || !goal || !category || !imageInput) {
+            alert("Please fill all required fields!");
+            return;
+          }
+
+          // Convert image to base64
+          const reader = new FileReader();
+          reader.readAsDataURL(imageInput);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+          reader.onload = function () {
+            const imageUrl = reader.result; // Base64 image URL
+
+            // New fundraiser object
+            const newFundraiser = {
+              name: title,
+              description: description,
+              raised: 0,
+              goal: parseInt(goal),
+              category: category,
+              img: imageUrl,
+            };
+
+            // Save to localStorage
+            let fundraisers =
+              JSON.parse(localStorage.getItem("fundraisers")) || [];
+            fundraisers.push(newFundraiser);
+            localStorage.setItem("fundraisers", JSON.stringify(fundraisers));
+
+            alert("Fundraiser Created Successfully!");
+            window.location.href = "homepage.html"; // Redirect to homepage
+          };
+        }
+      </script>
+    </div>
+  </body>
+</html>

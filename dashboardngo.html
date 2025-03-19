@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charity Donation Platform</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome CDN (Latest Version) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <h1>CharityHope</h1>
+      <div class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="fundraiser.html" class="create-fundraiser-btn"
+          >Create Fundraiser</a
+        >
+        <a href="UserAunthetication.html" onclick="logout()">Logout</a>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h2>Support a Cause, Make a Difference</h2>
+      <p>Find fundraisers and help NGOs achieve their goals.</p>
+
+      <div class="search-bar">
+        <input type="text" id="search" placeholder="Search fundraisers" />
+        <select id="category">
+          <option value="">All Categories</option>
+          <option value="education">Education</option>
+          <option value="health">Health</option>
+          <option value="disaster">Disaster Relief</option>
+        </select>
+        <button onclick="filterFundraisers()">Search</button>
+      </div>
+    </div>
+
+    <!-- Fundraisers Section -->
+    <div class="fundraisers">
+      <h2>Active Fundraisers</h2>
+      <div class="fundraiser-container" id="fundraiserList">
+        <!-- Fundraisers will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials">
+      <h2>What People Are Saying</h2>
+      <div class="testimonial-container">
+        <div class="testimonial-card">
+          <p>
+            "This platform has made it so easy to support causes I care about.
+            Highly recommended!"
+          </p>
+          <h4>- Sanjay Sharma</h4>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            "Transparency and ease of use are unmatched. I love being able to
+            track my donations."
+          </p>
+          <h4>- Ritwik Kaushik</h4>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            "A great way to make a real impact. I've supported multiple
+            fundraisers here."
+          </p>
+          <h4>- Monak Patel</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impact Section -->
+    <div class="impact">
+      <h2>Our Impact</h2>
+      <div class="impact-stats">
+        <div class="stat">
+          <h3>50+</h3>
+          <p>Fundraisers Supported</p>
+        </div>
+        <div class="stat">
+          <h3>₹10M+</h3>
+          <p>Raised for Causes</p>
+        </div>
+        <div class="stat">
+          <h3>1000+</h3>
+          <p>Donors</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <!-- About Section -->
+        <div class="footer-section about">
+          <h2>About Us</h2>
+          <a id="team" href="teamsection.html">Our Team</a>
+          <p>
+            We are a decentralized charity platform that ensures transparency in
+            donations and fund allocation.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section links">
+          <h2>Quick Links</h2>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Fundraisers</a></li>
+            <li><a href="#">Donate</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="footer-section social">
+          <h2>Follow Us</h2>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61573865486290"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="https://x.com/Jitendr08578205"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/jitendra-singh-tanwar-213816281/"
+              ><i class="fa-brands fa-linkedin"></i
+            ></a>
+            <a href="https://www.instagram.com/terminator1656/"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 Transparent Charity | All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <script>
+      const fundraisers = [
+        {
+          id: 1,
+          name: "Help School Children",
+          category: "education",
+          description:
+            "Support underprivileged children to get access to quality education.",
+          img: "https://media.istockphoto.com/id/507276910/photo/group-of-happy-gypsy-indian-children-desert-village-india.jpg?s=612x612&w=0&k=20&c=IacakE5fqzC6w6Vs7MShhZFKa4ZV2_yupL5cfKxKVQg=",
+        },
+        {
+          id: 2,
+          name: "Medical Help for John",
+          category: "health",
+          description:
+            "Help John get the medical treatment to recover from a serious illness.",
+          img: "https://cdn.pixabay.com/photo/2015/02/26/15/40/doctor-650534_1280.jpg",
+        },
+        {
+          id: 3,
+          name: "Earthquake Relief",
+          category: "disaster",
+          description:
+            "Provide immediate relief to families affected by the recent earthquake.",
+          img: "https://cdn.pixabay.com/photo/2016/09/12/21/57/earthquake-1665870_1280.jpg",
+        },
+      ];
+
+      // Function to load fundraisers
+      function loadFundraisers() {
+        const container = document.getElementById("fundraiserList");
+        container.innerHTML = "";
+
+        fundraisers.forEach((fundraiser) => {
+          container.innerHTML += `
+                    <div class="fundraiser-card">
+                        <img src="${fundraiser.img}" alt="${fundraiser.name}">
+                        <div class="info">
+                            <h3>${fundraiser.name}</h3>
+                            <p>${fundraiser.description}</p>
+                            <button class="donate-btn" onclick="redirectToDonationForm(${fundraiser.id})">Donate Now</button>
+                            <button class="donate-btn" id="dusrabtn" onclick="window.location.href='user&ngodashboards.html'">All Donations</button>
+                        </div>
+                    </div>
+                `;
+        });
+      }
+
+      // Function to redirect to donation form
+      function redirectToDonationForm(fundraiserId) {
+        window.location.href = `charitylist.html?fundraiserId=${fundraiserId}`; // Redirect to charitylist.html with fundraiser ID
+      }
+
+      // Function to filter fundraisers
+      function filterFundraisers() {
+        const search = document.getElementById("search").value.toLowerCase();
+        const category = document.getElementById("category").value;
+
+        const filtered = fundraisers.filter(
+          (f) =>
+            f.name.toLowerCase().includes(search) &&
+            (category === "" || f.category === category)
+        );
+
+        const container = document.getElementById("fundraiserList");
+        container.innerHTML = ""; // Clear existing list
+
+        if (filtered.length === 0) {
+          container.innerHTML =
+            "<p>No fundraisers found matching your search.</p>";
+          return;
+        }
+
+        filtered.forEach((fundraiser) => {
+          container.innerHTML += `
+                    <div class="fundraiser-card">
+                        <img src="${fundraiser.img}" alt="${fundraiser.name}">
+                        <div class="info">
+                            <h3>${fundraiser.name}</h3>
+                            <p>${fundraiser.description}</p>
+                            <button class="donate-btn" onclick="redirectToDonationForm(${fundraiser.id})">Donate Now</button>
+                        </div>
+                    </div>
+                `;
+        });
+      }
+
+      // Load fundraisers on page load
+      loadFundraisers();
+
+      // Logout function
+      function logout() {
+        localStorage.removeItem("currentUser"); // Clear the current user session
+        window.location.href = "UserAunthetication.html"; // Redirect to login page
+      }
+    </script>
+  </body>
+</html>

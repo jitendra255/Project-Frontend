@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donation System</title>
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #cddc39, #009688);
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 600px;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      h2 {
+        color: #ffe501;
+        margin-bottom: 20px;
+      }
+
+      .fundraiser img {
+        width: 100%;
+        height: auto;
+        max-height: 250px; /* Ensures image fits well */
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+        object-fit: cover; /* Ensures the image maintains proportions */
+      }
+
+      .fundraiser img:hover {
+        transform: scale(1.05);
+      }
+
+      .progress-container {
+        background: #444;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20px;
+        margin-top: 15px;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #ffe501;
+        text-align: center;
+        color: #333;
+        font-weight: bold;
+        line-height: 20px;
+        transition: width 0.5s ease-in-out;
+      }
+
+      .donate-section {
+        margin-top: 20px;
+      }
+
+      input {
+        padding: 12px;
+        width: 80%;
+        margin: 10px 0;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        outline: none;
+      }
+
+      button {
+        padding: 12px 20px;
+        background: #ffe501;
+        color: #000;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #ffcc00;
+      }
+
+      .history {
+        margin-top: 20px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      .history h3 {
+        color: #ffe501;
+      }
+
+      .history ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .history li {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      @media (max-width: 600px) {
+        input {
+          width: 100%;
+        }
+
+        .container {
+          padding: 15px;
+        }
+
+        .fundraiser img {
+          max-height: 180px; /* Slightly smaller on mobile for better fit */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>🌍 Support a Cause</h2>
+
+      <div class="fundraiser">
+        <img
+          src="https://imgs.search.brave.com/UXdBF1b9T9GLUco9HuR2SfPHlYZkmcp-mXJq1_cEdcs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pay5p/bWFnZWtpdC5pby94/djZ3cGx0YmUvSW5z/aWRlX1NsaWRlcl9f/Ml9fXzFfX0VsN3h6/OFY0LS5qcGc_aWst/c2RrLXZlcnNpb249/amF2YXNjcmlwdC0x/LjQuMyZ1cGRhdGVk/QXQ9MTY2NTgxMjA4/NjI3NA"
+          alt="Fundraiser Image"
+        />
+        <h3>Help Flood Victims</h3>
+        <p><strong>Goal: ₹1,00,000</strong></p>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
+        <p>
+          <strong
+            >Raised: ₹<span id="raised-amount">0</span> / ₹1,00,000</strong
+          >
+        </p>
+      </div>
+
+      <div class="donate-section">
+        <input
+          type="number"
+          id="donation-amount"
+          placeholder="Enter amount (₹)"
+          min="1"
+        />
+        <button onclick="donate()">Donate Now</button>
+      </div>
+
+      <div class="history">
+        <h3>Donation History</h3>
+        <ul id="history-list"></ul>
+      </div>
+    </div>
+
+    <script>
+      let raisedAmount = parseInt(localStorage.getItem("raisedAmount")) || 0;
+      updateProgressBar();
+
+      function donate() {
+        let amount = parseInt(document.getElementById("donation-amount").value);
+        if (!amount || amount <= 0) {
+          alert("⚠️ Please enter a valid donation amount.");
+          return;
+        }
+
+        raisedAmount += amount;
+        localStorage.setItem("raisedAmount", raisedAmount);
+        updateProgressBar();
+        saveDonationHistory(amount);
+        document.getElementById("donation-amount").value = "";
+      }
+
+      function updateProgressBar() {
+        let goal = 100000;
+        let percentage = (raisedAmount / goal) * 100;
+        document.getElementById("progress-bar").style.width = percentage + "%";
+        document.getElementById("progress-bar").textContent =
+          Math.round(percentage) + "%";
+        document.getElementById("raised-amount").textContent = raisedAmount;
+      }
+
+      function saveDonationHistory(amount) {
+        let historyList = document.getElementById("history-list");
+        let listItem = document.createElement("li");
+        listItem.textContent = `💰 You donated ₹${amount}`;
+        historyList.prepend(listItem);
+      }
+
+      function loadHistory() {
+        let historyList = document.getElementById("history-list");
+        historyList.innerHTML = localStorage.getItem("donationHistory") || "";
+      }
+
+      loadHistory();
+    </script>
+  </body>
+</html>

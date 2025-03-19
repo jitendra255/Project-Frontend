@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity Transparency Dashboard</title>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+            border-top: 6px solid #ff9800;
+        }
+
+        h2 {
+            color: #ff9800;
+            margin-bottom: 15px;
+        }
+
+        .donation-list {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff8e1;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .donation-list h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .donation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        .donation-item:hover {
+            background: #ffecb3;
+        }
+
+        .donation-item .details {
+            display: flex;
+            align-items: center;
+        }
+
+        .donation-item .details i {
+            font-size: 20px;
+            margin-right: 12px;
+            color: #ff9800;
+        }
+
+        .amount {
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        .transparent-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fbe9e7;
+            text-align: center;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .transparent-section h3 {
+            color: #d84315;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: #ff9800;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .btn:hover {
+            background: #e68900;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .donation-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .donation-item .details {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🌍 Charity Transparency Dashboard</h2>
+
+        <div class="donation-list">
+            <h3>Recent Donations</h3>
+            <div id="donation-records">
+                <p>No donations yet.</p>
+            </div>
+        </div>
+
+        <div class="transparent-section">
+            <h3>🔗 Public Ledger</h3>
+            <button class="btn" onclick="showBlockchainData()">View Blockchain Transactions</button>
+        </div>
+    </div>
+
+    <script>
+        let donations = JSON.parse(localStorage.getItem("donations")) || [];
+
+        function displayDonations() {
+            let recordsDiv = document.getElementById("donation-records");
+            recordsDiv.innerHTML = "";
+
+            if (donations.length === 0) {
+                recordsDiv.innerHTML = "<p>No donations yet.</p>";
+                return;
+            }
+
+            donations.forEach(donation => {
+                let div = document.createElement("div");
+                div.classList.add("donation-item");
+                div.innerHTML = `
+                    <div class="details">
+                        <i class="fas fa-user"></i>
+                        <span>${donation.name}</span>
+                    </div>
+                    <span class="amount">₹${donation.amount}</span>
+                `;
+                recordsDiv.appendChild(div);
+            });
+        }
+
+        function addDonation(name, amount) {
+            donations.push({ name, amount });
+            localStorage.setItem("donations", JSON.stringify(donations));
+            displayDonations();
+        }
+
+        function showBlockchainData() {
+            alert("🔗 Blockchain transactions will be displayed here in a real implementation.");
+        }
+
+        displayDonations();
+    </script>
+
+</body>
+</html>

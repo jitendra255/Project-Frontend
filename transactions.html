@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation History & Receipts</title>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+            border-top: 6px solid #ff9800;
+        }
+
+        h2 {
+            color: #ff9800;
+            margin-bottom: 15px;
+        }
+
+        .history-list {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff8e1;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-list h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        .history-item:hover {
+            background: #ffecb3;
+        }
+
+        .history-item .details {
+            display: flex;
+            align-items: center;
+        }
+
+        .history-item .details i {
+            font-size: 20px;
+            margin-right: 12px;
+            color: #ff9800;
+        }
+
+        .amount {
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        .receipt-btn {
+            padding: 8px 12px;
+            background: #ff9800;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .receipt-btn:hover {
+            background: #e68900;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .history-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .history-item .details {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📜 Donation History & Receipts</h2>
+
+        <div class="history-list">
+            <h3>📝 Your Past Donations</h3>
+            <div id="history-records">
+                <p>No donation history yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let donations = JSON.parse(localStorage.getItem("donations")) || [];
+
+        function displayHistory() {
+            let recordsDiv = document.getElementById("history-records");
+            recordsDiv.innerHTML = "";
+
+            if (donations.length === 0) {
+                recordsDiv.innerHTML = "<p>No donation history yet.</p>";
+                return;
+            }
+
+            donations.forEach((donation, index) => {
+                let div = document.createElement("div");
+                div.classList.add("history-item");
+                div.innerHTML = `
+                    <div class="details">
+                        <i class="fas fa-user"></i>
+                        <span>${donation.name}</span>
+                    </div>
+                    <span class="amount">₹${donation.amount}</span>
+                    <button class="receipt-btn" onclick="printReceipt(${index})">
+                        🖨️ Print Receipt
+                    </button>
+                `;
+                recordsDiv.appendChild(div);
+            });
+        }
+
+        function printReceipt(index) {
+            let donation = donations[index];
+            let receiptContent = `
+                <html>
+                <head>
+                    <title>Donation Receipt</title>
+                    <style>
+                        body { font-family: 'Poppins', sans-serif; text-align: center; padding: 20px; }
+                        .receipt-container {
+                            max-width: 500px;
+                            margin: auto;
+                            padding: 20px;
+                            border: 1px solid #ddd;
+                            border-radius: 10px;
+                            background: #fff8e1;
+                            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+                        }
+                        h2 { color: #ff9800; }
+                        .details { text-align: left; margin-top: 20px; }
+                        .details p { margin: 5px 0; }
+                        .footer { margin-top: 15px; font-size: 14px; color: #888; }
+                    </style>
+                </head>
+                <body>
+                    <div class="receipt-container">
+                        <h2>🌍 Charity Donation Receipt</h2>
+                        <hr>
+                        <div class="details">
+                            <p><strong>Donor:</strong> ${donation.name}</p>
+                            <p><strong>Amount:</strong> ₹${donation.amount}</p>
+                            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                        </div>
+                        <hr>
+                        <p class="footer">Thank you for your generous contribution! 🌟</p>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            let printWindow = window.open("", "_blank");
+            printWindow.document.write(receiptContent);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        displayHistory();
+    </script>
+
+</body>
+</html>

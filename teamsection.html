@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members</title>
+   
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            background: linear-gradient(#cddc39, #009688);
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        .row {
+            width: 80%;
+            background: #ffe501;
+            margin: 4% auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .col {
+            width: 25%;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            margin: 10px;
+        }
+
+        .col img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .col h3, .col p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .social-link .fa-brands {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #000;
+            margin: 5px;
+            cursor: pointer;
+            transition: transform .3s ease-in-out;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .social-link .fa-brands:hover {
+            background: #000;
+            color: #ffe501;
+            transform: translateY(-5px);
+        }
+
+        .col:hover img {
+            transform: scale(1.1);
+        }
+
+        .col span {
+            width: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-right: 15px solid #ffe501;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .col .arrow {
+            right: unset;
+            left: 0;
+            border-left: 15px solid #ffe501;
+            border-right: 15px solid transparent;
+        }
+
+        @media screen and (max-width: 770px) {
+            .row {
+                width: 95%;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .col {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+
+            .social-link .fa-brands {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="row">
+        <!-- Team Member 1 -->
+        <div class="col">
+            <img src="assests/jitendra.jpg" alt="Team Member 1">
+            <h3>Jitendra</h3>
+            
+            <div class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="col">
+            <img src="assests/dharmesh.jpg" alt="Team Member 2">
+            <h3>Dharmesh</h3>
+           
+            <div class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="col">
+            <img src="assests/garvit.jpg" alt="Team Member 3">
+            <h3>Garvit</h3>
+           
+            <div class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="col">
+            <img src="assests/aman.jpg" alt="Team Member 4">
+            <h3>Aman</h3>
+           
+            <div class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+        <div class="col">
+            <img src="assests/dhirendra.jpg" alt="Team Member 5">
+            <h3>Dhirendra</h3>
+            
+            <div class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+
+        <div class="col">
+            <img src="assests/harsh.jpg" alt="Team Member 6">
+            <h3>Harsh</h3>
+            <div class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </div>
+    </div> 
+    <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
